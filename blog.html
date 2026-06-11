@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fashion Blog - Fashion Aura</title>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#0a0a0a;
+color:white;
+}
+
+header{
+background:black;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+font-size:30px;
+font-weight:bold;
+color:gold;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+}
+
+nav a:hover{
+color:gold;
+}
+
+.hero{
+height:50vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600');
+background-size:cover;
+background-position:center;
+}
+
+.hero h1{
+font-size:50px;
+margin-bottom:15px;
+color:gold;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:0 20px;
+}
+
+.search-section{
+padding:40px 20px;
+background:#1a1a1a;
+text-align:center;
+}
+
+.search-box{
+display:flex;
+gap:10px;
+max-width:500px;
+margin:auto;
+}
+
+.search-box input{
+flex:1;
+padding:12px;
+border:1px solid #333;
+border-radius:5px;
+background:#0a0a0a;
+color:white;
+}
+
+.search-box input::placeholder{
+color:#999;
+}
+
+.search-box button{
+padding:12px 25px;
+background:gold;
+color:black;
+border:none;
+border-radius:5px;
+font-weight:bold;
+cursor:pointer;
+transition:all 0.3s ease;
+}
+
+.search-box button:hover{
+background:#ffd700;
+}
+
+.blog-section{
+padding:50px 20px;
+}
+
+.blog-section h2{
+text-align:center;
+margin-bottom:40px;
+color:gold;
+font-size:36px;
+}
+
+.filter-tabs{
+display:flex;
+justify-content:center;
+gap:15px;
+margin-bottom:40px;
+flex-wrap:wrap;
+}
+
+.filter-btn{
+padding:10px 20px;
+background:#1a1a1a;
+color:white;
+border:1px solid #333;
+border-radius:25px;
+cursor:pointer;
+transition:all 0.3s ease;
+font-weight:bold;
+}
+
+.filter-btn:hover,
+.filter-btn.active{
+background:gold;
+color:black;
+border-color:gold;
+}
+
+.blog-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(350px,1fr));
+gap:30px;
+margin-bottom:50px;
+}
+
+.blog-card{
+background:#1a1a1a;
+border-radius:15px;
+overflow:hidden;
+transition:transform 0.3s ease,border-color 0.3s ease;
+border:1px solid #333;
+}
+
+.blog-card:hover{
+transform:translateY(-5px);
+border-color:gold;
+}
+
+.blog-image{
+width:100%;
+height:220px;
+background:linear-gradient(135deg, #333, #555);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:60px;
+}
+
+.blog-content{
+padding:25px;
+}
+
+.blog-meta{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+font-size:12px;
+color:#999;
+}
+
+.blog-category{
+display:inline-block;
+background:gold;
+color:black;
+padding:5px 12px;
+border-radius:15px;
+font-size:11px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.blog-card h3{
+color:gold;
+margin-bottom:10px;
+font-size:20px;
+line-height:1.4;
+}
+
+.blog-card p{
+line-height:1.6;
+margin-bottom:15px;
+height:60px;
+overflow:hidden;
+color:#ccc;
+}
+
+.read-more{
+display:inline-block;
+color:gold;
+text-decoration:none;
+font-weight:bold;
+transition:color 0.3s ease;
+}
+
+.read-more:hover{
+color:#ffd700;
+}
+
+.featured-section{
+background:linear-gradient(135deg, #1a1a1a, #2a2a2a);
+padding:40px;
+border-radius:15px;
+margin-bottom:50px;
+border:1px solid #333;
+}
+
+.featured-section h2{
+color:gold;
+margin-bottom:20px;
+}
+
+.featured-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+align-items:center;
+}
+
+.featured-image{
+width:100%;
+height:300px;
+background:linear-gradient(135deg, #333, #555);
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:80px;
+}
+
+.featured-text h3{
+color:gold;
+margin-bottom:15px;
+font-size:24px;
+}
+
+.featured-text p{
+line-height:1.8;
+margin-bottom:15px;
+color:#ccc;
+}
+
+.featured-text .read-more{
+display:inline-block;
+margin-top:15px;
+padding:10px 20px;
+background:gold;
+color:black;
+border-radius:5px;
+font-weight:bold;
+}
+
+.featured-text .read-more:hover{
+color:black;
+background:#ffd700;
+}
+
+.pagination{
+display:flex;
+justify-content:center;
+gap:10px;
+margin:40px 0;
+}
+
+.pagination a,
+.pagination span{
+padding:10px 15px;
+background:#1a1a1a;
+color:gold;
+text-decoration:none;
+border-radius:5px;
+border:1px solid #333;
+}
+
+.pagination a:hover{
+background:gold;
+color:black;
+}
+
+.pagination .active{
+background:gold;
+color:black;
+}
+
+.newsletter-section{
+background:#1a1a1a;
+padding:50px 20px;
+text-align:center;
+border-top:1px solid #333;
+}
+
+.newsletter-section h2{
+color:gold;
+margin-bottom:15px;
+}
+
+.newsletter-section p{
+color:#ccc;
+margin-bottom:20px;
+}
+
+.newsletter-form{
+display:flex;
+gap:10px;
+max-width:500px;
+margin:30px auto;
+}
+
+.newsletter-form input{
+flex:1;
+padding:12px;
+border:1px solid #333;
+border-radius:5px;
+background:#0a0a0a;
+color:white;
+}
+
+.newsletter-form input::placeholder{
+color:#999;
+}
+
+.newsletter-form button{
+padding:12px 25px;
+background:gold;
+color:black;
+border:none;
+border-radius:5px;
+font-weight:bold;
+cursor:pointer;
+transition:all 0.3s ease;
+}
+
+.newsletter-form button:hover{
+background:#ffd700;
+}
+
+footer{
+text-align:center;
+padding:30px;
+border-top:1px solid #333;
+}
+
+footer p{
+margin:5px 0;
+}
+
+footer a{
+color:gold;
+text-decoration:none;
+}
+
+footer a:hover{
+text-decoration:underline;
+}
+
+@media(max-width:768px){
+.hero h1{
+font-size:36px;
+}
+
+.blog-grid{
+grid-template-columns:1fr;
+}
+
+.featured-grid{
+grid-template-columns:1fr;
+}
+
+.search-box{
+flex-direction:column;
+}
+
+.filter-tabs{
+justify-content:center;
+}
+
+nav a{
+margin-left:10px;
+font-size:14px;
+}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">Fashion Aura</div>
+<nav>
+<a href="index.html">Home</a>
+<a href="style-guide.html">Style Guide</a>
+<a href="blog.html">Blog</a>
+</nav>
+</header>
+
+<section class="hero">
+<div>
+<h1>Fashion & Beauty Blog</h1>
+<p>Discover the latest trends, tips, and inspiration</p>
+</div>
+</section>
+
+<section class="search-section">
+<div class="container">
+<h3 style="margin-bottom:20px;color:gold;">Find Your Inspiration</h3>
+<div class="search-box">
+<input type="text" placeholder="Search posts, tips, trends...">
+<button onclick="alert('Search functionality coming soon!')">Search</button>
+</div>
+</div>
+</section>
+
+<section class="featured-section container" style="margin-top:50px;">
+<h2>✨ Featured Post</h2>
+<div class="featured-grid">
+<div class="featured-image">👗</div>
+<div class="featured-text">
+<h3>25 Chic Summer Outfit Ideas That Will Make You Look Fabulous</h3>
+<p>Summer is the perfect time to experiment with your style. From breezy sundresses to chic shorts, we've curated 25 must-try outfits that will keep you looking fabulous all season long. Whether you're heading to the beach, a casual brunch, or a night out with friends, these versatile looks have got you covered.</p>
+<p><strong>Topics:</strong> Summer Fashion • Styling Tips • Outfit Ideas</p>
+<a href="#" class="read-more">Read Full Article →</a>
+</div>
+</div>
+</section>
+
+<section class="blog-section">
+<div class="container">
+<h2>Latest Articles</h2>
+
+<div class="filter-tabs">
+<button class="filter-btn active" onclick="filterPosts('all')">All Posts</button>
+<button class="filter-btn" onclick="filterPosts('fashion')">Fashion</button>
+<button class="filter-btn" onclick="filterPosts('beauty')">Beauty</button>
+<button class="filter-btn" onclick="filterPosts('lifestyle')">Lifestyle</button>
+<button class="filter-btn" onclick="filterPosts('skincare')">Skincare</button>
+</div>
+
+<div class="blog-grid">
+
+<div class="blog-card" data-category="fashion">
+<div class="blog-image">👔</div>
+<div class="blog-content">
+<span class="blog-category">Fashion</span>
+<div class="blog-meta">
+<span>June 10, 2026</span>
+<span>5 min read</span>
+</div>
+<h3>Old Money Aesthetic: The Ultimate Guide</h3>
+<p>Master the timeless elegance of old money fashion. Learn how to build a wardrobe that screams quiet luxury and sophistication without breaking the bank.</p>
+<a href="#" class="read-more">Read More →</a>
+</div>
+</div>
+
+<div class="blog-card" data-category="beauty">
+<div class="blog-image">💄</div>
+<div class="blog-content">
+<span class="blog-category">Beauty</span>
+<div class="blog-meta">
+<span>June 8, 2026</span>
+<span>4 min read</span>
+</div>
+<h3>Glowing Skin: A 7-Day Skincare Challenge</h3>
+<p>Transform your skin in just one week! Follow our intensive skincare routine designed to clear, brighten, and rejuvenate your complexion naturally.</p>
+<a href="#" class="read-more">Read More →</a>
+</div>
+</div>
+
+<div class="blog-card" data-category="fashion">
+<div class="blog-image">👠</div>
+<div class="blog-content">
+<span class="blog-category">Fashion</span>
+<div class="blog-meta">
+<span>June 6, 2026</span>
+<span>6 min read</span>
+</div>
+<h3>Street Style Secrets from Fashion Capitals</h3>
+<p>Discover what fashion-forward individuals are wearing in NYC, Paris, and Tokyo. Get inspired by street style trends and learn how to adapt them to your personal style.</p>
+<a href="#" class="read-more">Read More →</a>
+</div>
+</div>
+
+<div class="blog-card" data-category="beauty">
+<div class="blog-image">✨</div>
+<div class="blog-content">
+<span class="blog-category">Beauty</span>
+<div class="blog-meta">
+<span>June 4, 2026</span>
+<span>5 min read</span>
+</div>
+<h3>Natural Makeup That Looks Professional</h3>
+<p>Learn the art of no-makeup makeup. Get the tips and tricks to enhance your natural features with a subtle, professional finish that works for any occasion.</p>
+<a href="#" class="read-more">Read More →</a>
+</div>
+</div>
+
+<div class="blog-card" data-category="fashion">
+<div class="blog-image">👜</div>
+<div class="blog-content">
+<span class="blog-category">Fashion</span>
+<div class="blog-meta">
+<span>June 2, 2026</span>
+<span>7 min read</span>
+</div>
+<h3>Investment Pieces Worth Every Penny</h3>
+<p>Build a timeless wardrobe with quality investment pieces. From classic handbags to tailored blazers, discover items that never go out of style and work across seasons.</p>
+<a href="#" class="read-more">Read More →</a>
+</div>
+</div>
+
+<div class="blog-card" data-category="skincare">
+<div class="blog-image">💅</div>
+<div class="blog-content">
+<span class="blog-category">Skincare</span>
+<div class="blog-meta">
+<span>May 31, 2026</span>
+<span>4 min read</span>
+</div>
+<h3>Nails Art Trends: Express Yourself</h3>
+<p>From minimalist designs to bold statements, explore the latest nail art trends. Learn simple techniques to DIY stunning nails at home or get inspired for your next salon visit.</p>
+<a href="#" class="read-more">Read More →</a>
+</div>
+</div>
+
+<div class="blog-card" data-category="lifestyle">
+<div class="blog-image">🌿</div>
+<div class="blog-content">
+<span class="blog-category">Lifestyle</span>
+<div class="blog-meta">
+<span>May 29, 2026</span>
+<span>6 min read</span>
+</div>
+<h3>Sustainable Fashion: Look Good, Feel Better</h3>
+<p>Make a positive impact with eco-friendly fashion choices. Discover sustainable brands, thrifting tips, and how to build an ethical wardrobe without sacrificing style.</p>
+<a href="#" class="read-more">Read More →</a>
+</div>
+</div>
+
+<div class="blog-card" data-category="beauty">
+<div class="blog-image">💇</div>
+<div class="blog-content">
+<span class="blog-category">Beauty</span>
+<div class="blog-meta">
+<span>May 27, 2026</span>
+<span>5 min read</span>
+</div>
+<h3>Hair Care Secrets for Every Hair Type</h3>
+<p>Whether you have curly, straight, or wavy hair, discover personalized hair care routines that will transform your locks. Learn the best products and techniques for your hair type.</p>
+<a href="#" class="read-more">Read More →</a>
+</div>
+</div>
+
+<div class="blog-card" data-category="fashion">
+<div class="blog-image">👗</div>
+<div class="blog-content">
+<span class="blog-category">Fashion</span>
+<div class="blog-meta">
+<span>May 25, 2026</span>
+<span>6 min read</span>
+</div>
+<h3>Dressing for Your Body Type: The Complete Guide</h3>
+<p>Understand your body shape and learn which silhouettes, cuts, and styles work best for you. Feel confident and beautiful in every outfit with our comprehensive styling guide.</p>
+<a href="#" class="read-more">Read More →</a>
+</div>
+</div>
+
+</div>
+
+<div class="pagination">
+<a href="#">← Previous</a>
+<span class="active">1</span>
+<a href="#">2</a>
+<a href="#">3</a>
+<a href="#">Next →</a>
+</div>
+
+</div>
+</section>
+
+<section class="newsletter-section">
+<div class="container">
+<h2>Stay Updated</h2>
+<p>Subscribe to our newsletter and get the latest fashion tips and beauty trends delivered to your inbox weekly!</p>
+<form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+<input type="email" placeholder="Enter your email address" required>
+<button type="submit">Subscribe</button>
+</form>
+</div>
+</section>
+
+<footer>
+<p>© 2026 Fashion Aura | Fashion & Beauty Inspiration</p>
+<p>Email: <a href="mailto:mankashjaswantsingh@gmail.com">mankashjaswantsingh@gmail.com</a></p>
+<p>Instagram: <a href="https://instagram.com/jaswantsingh3377" target="_blank">@jaswantsingh3377</a></p>
+</footer>
+
+<script>
+function filterPosts(category) {
+  const cards = document.querySelectorAll('.blog-card');
+  const buttons = document.querySelectorAll('.filter-btn');
+  
+  buttons.forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  cards.forEach(card => {
+    if (category === 'all' || card.dataset.category === category) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+function handleNewsletterSubmit(event) {
+  event.preventDefault();
+  const email = event.target.querySelector('input[type="email"]').value;
+  alert(`Thanks for subscribing with ${email}! Check your inbox for our latest fashion tips.`);
+  event.target.reset();
+}
+</script>
+
+</body>
+</html>
